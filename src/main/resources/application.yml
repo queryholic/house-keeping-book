@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+  main:
+    allow-bean-definition-overriding: true
+
+clova:
+  ocr:
+    url: "https://5b26183adbc44dd9b8820afbaa170fd6.apigw.ntruss.com/custom/v1/6087/c22071ddbd7a07c4cda3c34d8c41f749f1a28ee2d2a162d008f3a6bfe00f8ef4/general"
+    secretKey: "d2lNTENYSndjVHdVQ3hleFNkaFBsd2hIQkxGUkFzeUs="
+
+webCleint:
+  connectTimeoutMillis: 3000
+  readTimeoutMillis: 10000
