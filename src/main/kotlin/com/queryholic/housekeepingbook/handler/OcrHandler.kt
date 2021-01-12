@@ -18,11 +18,9 @@ class OcrHandler(
         val imageUrl: String = request.queryParam("imageUrl").orElseThrow {
             throw IllegalArgumentException("query param is empty")
         }
-        val inferText = ocrService.inferText(imageUrl).awaitSingle()
+        val inferText = ocrService.inferText(imageUrl)
 
         return ok()
-                .bodyValueAndAwait("""{ 
-                    "inferText": "$inferText"
-                    }""".trimIndent())
+                .bodyValueAndAwait("inferText" to inferText)
     }
 }
