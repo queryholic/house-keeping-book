@@ -8,13 +8,14 @@ import org.springframework.web.reactive.function.server.coRouter
 
 @Configuration
 class ApiRouter(
-        private val ocrHandler: OcrHandler
-        , private val helloHandler: HelloHandler
+        private val ocrHandler: OcrHandler, private val helloHandler: HelloHandler
 ) {
 
     @Bean
     fun ocrRouter() = coRouter {
-        GET("/ocr/text", ocrHandler::inferText)
+        ("/ocr/text").nest {
+            GET("/{target}", ocrHandler::inferText)
+        }
     }
 
     @Bean
