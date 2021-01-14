@@ -19,7 +19,7 @@ internal class OcrServiceTest {
         val imageUrl = "https://user-images.githubusercontent.com/10183131/104323086-19cfc900-5529-11eb-89f9-5bd610207002.png"
 
         // when
-        val result = runBlocking { ocrService.inferText(imageUrl) }
+        val result = runBlocking { ocrService.inferText(imageUrl, "") }
 
         // then
         Assertions.assertIterableEquals(

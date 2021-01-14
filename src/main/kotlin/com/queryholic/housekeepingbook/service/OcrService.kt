@@ -15,7 +15,7 @@ class OcrService(
         private val ocrWebClient: WebClient
 ) {
 
-    suspend fun inferText(imageUrl: String): List<String> {
+    suspend fun inferText(imageUrl: String, delimiter: String): List<String> {
         val rawFields = ocrWebClient.post()
                 .bodyValue(OcrRequest(
                         requestId = "String", images = listOf(Image(url = imageUrl, name = "name"))
@@ -55,7 +55,7 @@ class OcrService(
                 .map { it ->
                     it.value.stream()
                             .map { it.inferText }
-                            .collect(Collectors.joining())
+                            .collect(Collectors.joining(delimiter))
                 }
                 .collect(Collectors.toList())
     }
