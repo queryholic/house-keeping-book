@@ -29,6 +29,12 @@ class OcrHandlerTest(
                         "002|솔잎란15구|2800|2800|1",
                         "003|풀무원소찌개두부|1500|1500|1",
                         "004|야채|2200|2200|1"
+                )),
+                Arguments.of("total-amount", "https://github.com/queryholic/images/raw/master/IMG_0023.png", "18000"),
+                Arguments.of("items", "https://github.com/queryholic/images/raw/master/IMG_0023.png", listOf(
+                        "메뉴명|수량|금액",
+                        "양푼동태탕(2인분)|1|16000",
+                        "배달팁|2000"
                 ))
         )
     }
