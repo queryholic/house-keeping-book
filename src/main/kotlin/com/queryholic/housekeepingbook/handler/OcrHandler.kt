@@ -1,6 +1,7 @@
 package com.queryholic.housekeepingbook.handler
 
 import com.queryholic.housekeepingbook.data.InferenceTarget
+import com.queryholic.housekeepingbook.extension.onlyNumber
 import com.queryholic.housekeepingbook.extension.removeSpecialCharacter
 import com.queryholic.housekeepingbook.service.OcrService
 import org.springframework.stereotype.Component
@@ -35,7 +36,7 @@ class OcrHandler(
             InferenceTarget.TOTAL_AMOUNT -> {
                 return ocrService.inferText(imageUrl, "").stream()
                         .filter { it.contains("합계") }
-                        .map { it.split(":")[1].removeSpecialCharacter() }
+                        .map { it.onlyNumber() }
                         .collect(Collectors.toList())
             }
             InferenceTarget.MERCHANT -> {
