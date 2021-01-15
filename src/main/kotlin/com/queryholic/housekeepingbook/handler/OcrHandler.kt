@@ -1,6 +1,7 @@
 package com.queryholic.housekeepingbook.handler
 
 import com.queryholic.housekeepingbook.data.InferenceTarget
+import com.queryholic.housekeepingbook.extension.removeSpecialCharacter
 import com.queryholic.housekeepingbook.service.OcrService
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -34,7 +35,7 @@ class OcrHandler(
             InferenceTarget.TOTAL_AMOUNT -> {
                 return ocrService.inferText(imageUrl, "").stream()
                         .filter { it.contains("합계") }
-                        .map { it.split(":")[1] }
+                        .map { it.split(":")[1].removeSpecialCharacter() }
                         .collect(Collectors.toList())
             }
             InferenceTarget.MERCHANT -> {
@@ -74,7 +75,7 @@ class OcrHandler(
                                                 .stream()
                                                 .skip(1)
                                                 .map {
-                                                    it.replace(Regex("[^\uAC00-\uD7A3xfe0-9a-zA-Z|\\s]"), "")
+                                                    it.removeSpecialCharacter()
                                                 }
                                                 .filter { it.isNotBlank() }
                                                 .collect(Collectors.joining("|"))

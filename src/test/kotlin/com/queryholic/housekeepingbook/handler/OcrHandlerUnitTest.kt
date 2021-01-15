@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 internal class OcrHandlerUnitTest {
-    val ocrService = mock<OcrService> {
-
+    private val ocrService = mock<OcrService> {
     }
 
     @Test
