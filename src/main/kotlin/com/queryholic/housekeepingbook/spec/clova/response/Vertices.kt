@@ -1,7 +1,7 @@
 package com.queryholic.housekeepingbook.spec.clova.response
 
 data class Vertices(val vertices: List<Vertex>) {
-    open fun getLeftUpperCorner(): Vertex = vertices[0]
+    fun getLeftUpperCorner(): Vertex = vertices[0]
 
     fun getWidth(): Double = vertices[1].x - vertices[0].x
 

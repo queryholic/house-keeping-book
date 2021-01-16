@@ -11,10 +11,7 @@ plugins {
 group = "com.queryholic"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
-
-tasks.getByName<BootJar>("bootJar") {
-    archiveFileName.set("api.jar")
-}
+buildDir = file("target")
 
 apply(plugin = "org.springframework.boot")
 apply(plugin = "io.spring.dependency-management")
@@ -34,17 +31,6 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 val profile = if (project.hasProperty("profile"))
     project.property("profile").toString() else "local"
 
@@ -56,6 +42,29 @@ sourceSets {
     }
 }
 
-tasks.getByName<Test>("test") {
-    systemProperty("spring.profiles.active", profile)
+tasks {
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+    compileTestJava {
+        options.encoding = "UTF-8"
+    }
+
+
+    getByName<BootJar>("bootJar") {
+        destinationDirectory.set(project.file(project.buildDir))
+        archiveFileName.set("api.jar")
+    }
+
+    getByName<Test>("test") {
+        systemProperty("spring.profiles.active", profile)
+        useJUnitPlatform()
+    }
+
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "1.8"
+        }
+    }
 }
